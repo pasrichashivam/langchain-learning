@@ -11,5 +11,3 @@ wheels/
 .venv
 .env
 common*
-*uv.lock
-*.python-version
