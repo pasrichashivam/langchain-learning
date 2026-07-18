@@ -10,4 +10,4 @@ wheels/
 # Virtual environments
 .venv
 .env
-common_faqs
+common*
