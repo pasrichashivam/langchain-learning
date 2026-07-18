@@ -33,17 +33,16 @@ graph LR
     G --> M[Microsoft Foundry]
 ```
 
-*These concepts work together to create powerful AI applications. You'll explore each in depth throughout the course.*
+*These concepts work together to create powerful AI applications.*
 
 ---
 ## Core Concepts Overview
 
-LangChain is built around 5 core concepts:
+LangChain is built around below core concepts:
 
 - **Models**: AI "brains" that process inputs and generate outputs.
 - **Prompts**: How you communicate with AI models using reusable templates.
 - **Tools**: Extend AI capabilities with external functions and APIs.
-- **Agents**: AI systems that reason and decide which tools to use autonomously.
 - **Memory**: Remember context across interactions.
 
 ---
@@ -53,7 +52,7 @@ LangChain is built around 5 core concepts:
 flowchart LR
     A[User Input] --> B[Memory]
     B --> C[Prompts]
-    C --> D[Tools/Agents]
+    C --> D[Tools]
     D --> E[Models]
     E --> F[Response]
 ```
