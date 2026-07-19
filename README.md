@@ -70,7 +70,7 @@ graph TD
     B --> B1[SystemMessage]
     B --> B2[HumanMessage]
     B --> B3[AIMessage]
-    B --> B4[Dynamic Construction]
+    B --> B4[ToolMessage]
     
     C --> C1[ChatPromptTemplate]
     C --> C2[PromptTemplate]
@@ -84,12 +84,11 @@ graph TD
     
     B4 --> E[Agents]
     C4 --> F[RAG Systems]
-    D4 --> G[Data Extraction]
 ```
 
 ---
 
-## Langchain Summary
+## Langchain Summary [Still Learning]
 
 | Component               | Purpose                                              | When to Use                 | Typical Enterprise Use Case              |
 | ----------------------- | ---------------------------------------------------- | --------------------------- | ---------------------------------------- |

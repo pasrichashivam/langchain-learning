@@ -12,6 +12,19 @@
 
 ---
 
+### Langchain Templates
+```mermaid
+graph TD
+    A[Templates]
+    A --> A1[ChatPromptTemplate]
+    A --> A2[PromptTemplate]
+    A --> A3[FewShotChatMessagePromptTemplate]
+    A --> A4[Template Composition]
+
+```
+
+---
+
 ### Few-Shot Prompting with Templates
 Teach the AI by providing examples, One of the most powerful prompting techniques.
 
@@ -52,10 +65,10 @@ Use Pydantic models to get type-safe, structured data from LLMs. This ensures yo
 ### Complex Pydantic Schemas
 Build more sophisticated schemas with nested objects, enums, and validation. 
 
-* **Nested Models:** Define Address and use it inside Company
+* **Nested Models:** e.g. define Address Model and use it inside Company Model (same like nested Json)
 * **Literal Types**: Use Literal["A", "B", "C"] for enum-like constraints
 * **Validation**: Pydantic validates types automatically
-* **Access Nested Data**: Use dot notation like result.headquarters.city
+* **Access Nested Data**: Use dot notation like `result.headquarters.city`
 
 ---
 
@@ -70,7 +83,7 @@ graph TD
     B --> B1[SystemMessage]
     B --> B2[HumanMessage]
     B --> B3[AIMessage]
-    B --> B4[Dynamic Construction]
+    B --> B4[ToolMessage]
     
     C --> C1[ChatPromptTemplate]
     C --> C2[PromptTemplate]
@@ -84,5 +97,4 @@ graph TD
     
     B4 --> E[Agents]
     C4 --> F[RAG Systems]
-    D4 --> G[Data Extraction]
 ```
