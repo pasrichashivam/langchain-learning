@@ -59,6 +59,36 @@ flowchart LR
 
 ---
 
+## Messages & Prompts
+
+```mermaid
+graph TD
+    A[Prompts & Messages] --> B[Messages]
+    A --> C[Templates]
+    A --> D[Structured Output]
+    
+    B --> B1[SystemMessage]
+    B --> B2[HumanMessage]
+    B --> B3[AIMessage]
+    B --> B4[Dynamic Construction]
+    
+    C --> C1[ChatPromptTemplate]
+    C --> C2[PromptTemplate]
+    C --> C3[FewShotChatMessagePromptTemplate]
+    C --> C4[Template Composition]
+    
+    D --> D1[Pydantic BaseModel]
+    D --> D2[Field Descriptions]
+    D --> D3[with_structured_output]
+    D --> D4[Nested Schemas]
+    
+    B4 --> E[Agents]
+    C4 --> F[RAG Systems]
+    D4 --> G[Data Extraction]
+```
+
+---
+
 ## Langchain Summary
 
 | Component               | Purpose                                              | When to Use                 | Typical Enterprise Use Case              |
