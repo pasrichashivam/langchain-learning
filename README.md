@@ -56,3 +56,24 @@ flowchart LR
     D --> E[Models]
     E --> F[Response]
 ```
+
+---
+
+## Langchain Summary
+
+| Component               | Purpose                                              | When to Use                 | Typical Enterprise Use Case              |
+| ----------------------- | ---------------------------------------------------- | --------------------------- | ---------------------------------------- |
+| **Models**              | Unified interface for LLMs                           | Every LLM application       | OpenAI, Claude, Gemini interchangeably   |
+| **Messages**            | Manage conversation history                          | Chat applications           | AI Copilot, Chatbots                     |
+| **Embeddings**          | Convert text into vectors                            | RAG, semantic search        | Knowledge base search                    |
+| **Tools**               | Connect LLM with external systems                    | Need APIs or databases      | SQL, SAP, REST APIs                      |
+| **Agents**              | Autonomous reasoning and tool selection              | Multi-step problem solving  | Enterprise AI assistants                 |
+| **Middleware**          | Intercept requests/responses                         | Production deployments      | Logging, guardrails, authentication      |
+| **Short-Term Memory**   | Preserve conversational context                      | Multi-turn chat             | Customer support bots                    |
+| **Structured Output**   | Produce validated JSON or typed data                 | Automation and integrations | ETL, workflow orchestration              |
+| **Context Engineering** | Build the right context for the model                | RAG and agent systems       | Enterprise knowledge retrieval           |
+| **Runtime**             | Manage execution lifecycle                           | Production workloads        | Async processing, retries                |
+| **Streaming**           | Return tokens incrementally                          | Interactive user interfaces | Chat applications, voice assistants      |
+| **MCP**                 | Standard protocol for external tools                 | Multi-system AI integration | GitHub, Slack, databases, IDEs           |
+| **Integrations**        | Connect to models, vector stores, loaders, and tools | Virtually every application | Pinecone, Chroma, S3, SharePoint, OpenAI |
+
