@@ -1,7 +1,7 @@
 
 # Prompt Templates VS Messages
 
-<img src="../../../assets/messages-vs-templates.png" width="800" height="400">
+<img src="../../assets/messages-vs-templates.png" width="800" height="400">
 
 | Approach | Use For |
 |----------|---------|
@@ -28,7 +28,7 @@ graph TD
 ### Few-Shot Prompting with Templates
 Teach the AI by providing examples, One of the most powerful prompting techniques.
 
-<img src="../../../assets/few-shot-prompting.png" width="800" height="400">
+<img src="../../assets/few-shot-prompting.png" width="800" height="400">
 
 ---
 
@@ -44,7 +44,7 @@ Build complex prompts by combining smaller templates together.
 # Structured Outputs (Pydantic)
 Use Pydantic models to get type-safe, structured data from LLMs. This ensures you get exactly the data structure you need.
 
-<img src="../../../assets/structured-output1.png" width="800" height="400">
+<img src="../../assets/structured-output1.png" width="800" height="400">
 
 ### Example structured outputs like a form:
 

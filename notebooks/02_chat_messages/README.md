@@ -10,7 +10,7 @@ Chat models don't actually "remember" previous messages. Instead, you send the e
 
 **Think of it like this**: Every time you send a message, you're showing the AI the entire conversation thread so far.
 
-<img src="../../../assets/conversation-history-flow.png" alt="Conversation History Flow" width="800" height="400"/>
+<img src="../../assets/conversation-history-flow.png" alt="Conversation History Flow" width="800" height="400"/>
 
 *How the messages list builds up over multiple exchanges - full history sent with each invoke()*
 
@@ -42,7 +42,7 @@ When you ask a complex question, waiting for the entire response can feel slow. 
 
 **Building a chatbot where users ask complex questions.** With regular responses, users stare at a blank screen for 5-10 seconds wondering if anything is happening. With streaming, they see words appearing immediately just like ChatGPT which feels much more responsive even if the total time is the same.
 
-<img src="../../../assets/streaming-comparison.png" alt="Streaming vs Non-Streaming" height="400" width="800"/>
+<img src="../../assets/streaming-comparison.png" alt="Streaming vs Non-Streaming" height="400" width="800"/>
 
 **When streaming a response we use this format in python**
 

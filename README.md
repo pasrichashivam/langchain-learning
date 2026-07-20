@@ -51,7 +51,7 @@ graph LR
 2. Clone repository `git clone https://github.com/pasrichashivam/langchain-learning.git`
 3. Navigate to langchain-learning `cd langchain-learning`
 4. Replicate virtual environment used with working examples `uv sync`
-5. Copy `.env` with your API keys or export environment variables.
+5. Rename file `.env.example` to `.env` and paste your API keys.
 
 ---
 
