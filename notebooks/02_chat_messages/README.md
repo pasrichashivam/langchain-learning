@@ -18,7 +18,7 @@ Chat models don't actually "remember" previous messages. Instead, you send the e
 
 ### Message Types in LangChain
 
-LangChain provides three core message types for building conversations:
+LangChain provides 4 core message types for building conversations:
 
 | Type | Purpose | Example |
 |------|---------|---------|
@@ -26,7 +26,6 @@ LangChain provides three core message types for building conversations:
 | **HumanMessage** | User input and questions | `HumanMessage(content="What is Python?")` |
 | **AIMessage** | AI responses with metadata | Returned by `model.invoke()` with `content`, `usage_metadata` |
 | **ToolMessage** | The result of a tool call, sent back to the model. |
-| **AIMessageChunk** | Streaming AI responses with metadata 
 
 ```python
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage

@@ -45,6 +45,21 @@ from langchain.chat_models import init_chat_model
 
 ### Model Parameters
 
+| Parameter | Typical Values | Purpose | When to Use |
+|-----------|---------------|---------|-------------|
+| `model` | `"gpt-5"`, `"gpt-5-mini"` | Selects the LLM | Always required |
+| `temperature` | `0.0 – 2.0` | Controls randomness | Lower for deterministic tasks, higher for creativity |
+| `max_tokens` | `1` to model limit | Maximum tokens to generate | Control output length and cost |
+| `frequency_penalty` | `-2.0 – 2.0` | Discourages/Penalize repeating the same words. | Long-form generation like Blogs|
+| `presence_penalty` | `-2.0 – 2.0` | Encourages new topics | Brainstorming |
+| `seed` | Integer | Makes output more reproducible | Testing / Evaluation |
+| `stop` | List of strings | Stops generation on specified sequences | Structured outputs |
+| `timeout` | Seconds | Request timeout | Production |
+| `max_retries` | Integer | Retry failed requests | Reliability |
+| `streaming` | `True` / `False` | Stream tokens as generated | Chat UI |
+| `callbacks` | Callback handlers | Logging & tracing | LangSmith |
+| `response_format` | JSON, Text | Structured output | APIs |
+| `tools` | List of tools/functions | Function calling | Agents |
 --- 
 
 ### Calling model using Openrouter provider 
