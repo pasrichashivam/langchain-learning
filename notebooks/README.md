@@ -7,4 +7,4 @@
 | [**Chat Messages**](02_chat_messages/chat_messages.ipynb) | Types of messages involved in Conversation |
 | [**Prompt Templates**](03_prompts_structured_outputs/01_prompt_templates.ipynb) | Dynamic and reusable prompt templates |
 | [**Structured Output (Pydantic)**](03_prompts_structured_outputs/02_structured_output.ipynb) | Gettting structured/formatted AI response |
-
+| [**Tools**](04_tool_calls/ool_calls.ipynb) | Calling the tool |
