@@ -103,9 +103,9 @@ create_agent(
 )
 ```
 
-### Strategies to provide response_format
+### Strategies to provide for Structured Output
 * Pydantic Model: Directly pass Pydantic's BaseModel class e.g. `Contact`.
-* ProviderStrategy: Default if model and provider explicitly support structured outputs, check if `model.profile['structured_output']` is True
+* ProviderStrategy: Default if model and provider explicitly support structured outputs, check if `model.profile['structured_output']` is True [Can also be explicitly passes to with_structured_output()]
 * ToolStrategy: Fallback default for all other models or providers doesn't support schema validation
 
 ```mermaid
