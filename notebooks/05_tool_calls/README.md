@@ -76,7 +76,7 @@ graph LR
 
 ---
 
-## [1. Simple Tool Calling](01_simple_tool_call.ipynb)
+## [1. Simple Tool Calling](01_simple_tool_calls.ipynb)
 
 ### Below are the end-to-end steps to create and call the Tools
 
