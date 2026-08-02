@@ -145,5 +145,9 @@ graph LR
     final_response = model.invoke(messages)  # "The current temperature in Seattle is 62°F..."
     ```
 
-## [2. Context Aware Tool Calling with Runtime](02_context_aware_tool_calls.ipynb)
+## [2. Context Aware Tools with Runtime](02_context_aware_tool_calls.ipynb)
 
+* In newer version Langchain changes the way how tools receive information from the agent. 
+* Instead of passing everything manually, LangChain introduced ToolRuntime, which gives tools access to the execution context.
+    * **Old way:** You had to pass every information (memory, user ID, state, store, config) as function arguments.
+    * **New way:** LangChain automatically provides a **ToolRuntime** object that contains everything the tool might need.
