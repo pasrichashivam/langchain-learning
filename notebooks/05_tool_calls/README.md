@@ -232,4 +232,29 @@ We write:
 
 #### Headless tools
 
+## [3. Milestone Tracker (Dummy App)](03_milestone_tracker.ipynb)
+#### Milestone Tool Overview
+* This Milestone Tracker provides a simple way to manage user‑specific tasks using LangChain’s ToolRuntime and persistent storage. 
+* Each tool focuses on a single action: adding, viewing, completing, or deleting milestones.
 
+1. Add Milestone
+    * **Purpose:** Create a new milestone (task) for the current user.
+    * Used when a user wants to add a new task to their personal milestone list.
+
+2. View Milestones
+    * **Purpose:** Display all milestones belonging to the current user.
+    * Used when a user wants to see their current progress or review all tasks.
+
+3. Complete Milestone
+    * **Purpose:** Mark a specific milestone as completed.
+    * Used when a user finishes a task and wants to update their progress.
+
+4. Delete Milestone
+    * **Purpose:** Remove a milestone from the user’s list.
+    * Used when a user wants to clean up old, irrelevant, or completed tasks.
+
+#### Summary
+These tools together form a lightweight milestone‑tracking system that:
+* Stores user‑specific tasks
+* Allows CRUD operations (Create, Read, Update, Delete)
+* Keeps data consistent using the runtime store
