@@ -151,3 +151,85 @@ graph LR
 * Instead of passing everything manually, LangChain introduced ToolRuntime, which gives tools access to the execution context.
     * **Old way:** You had to pass every information (memory, user ID, state, store, config) as function arguments.
     * **New way:** LangChain automatically provides a **ToolRuntime** object that contains everything the tool might need.
+
+### Langchain Provides 2 Reserved arguments for Tools
+| Parameter name | Purpose |
+|----------|---------------|
+| config  | Reserved for passing RunnableConfig to tools internally |
+| runtime: ToolRuntime | Reserved for ToolRuntime parameter (accessing state, context, store) |
+
+**Information in these parameters will NOT BE VISIBLE TO LLMs**
+* If we bind or pass these tools to our Agent, information in these 2 parameters will be hidden from LLM.
+* So if we have some secret information or user_ids etc, we can use ToolRuntime to hide that information.
+
+Instead of passing information by writing
+```python
+    def get_orders(user_id, db):
+        ...
+```
+We write: 
+```python
+    def get_orders(runtime: ToolRuntime):
+        runtime.state  # Short-term memory - mutable data: Access conversation history, track tool call counts
+        runtime.store  # Long-term memory - Save user preferences, maintain knowledge base
+        runtime.context # Personalize responses based on user identity e.g runtime.context.user_id
+        runtime.config # Access callbacks, tags, and metadata
+        runtime.stream_writer # Emit real-time updates during tool execution
+        runtime.execution_info # Process and retry information for the current execution (thread ID, run ID, attempt number)
+        runtime.tool_call_id # 
+```
+<img src="../../assets/tool_runtime_information.png" width="800" height="400">
+
+---
+
+### Access context
+#### Short-term memory (State)
+* State represents short-term memory that exists for the duration of a conversation. 
+* It includes the message history and any custom fields.
+    * Tools can access the current conversation state using `runtime.state`
+    * Use `Command` to update the agent’s state.
+        * Return a Command when the tool needs to update graph state e.g. setting user preferences. 
+        * If the model needs to see that the tool succeeded e.g. to confirm a preference change.
+        * Include a ToolMessage in the update, using `runtime.tool_call_id` for the `tool_call_id` parameter.
+          ```python
+            return Command(
+                update={
+                    "preferred_language": language,
+                    "messages": [
+                        ToolMessage(
+                            content=f"Language set to {language}.",
+                            tool_call_id=runtime.tool_call_id,
+                        )
+                    ],
+                }
+            )
+            ```
+
+#### Context
+* Context provides immutable configuration data that is passed at invocation time. 
+* Use it for user IDs, session details, or application-specific settings that shouldn’t change during a conversation.
+* Access context through `runtime.context`.
+* Pass it alongside a `thread_id` so the conversation is persisted across turns.
+
+#### Long-term memory (Store)
+* Persistent storage that survives across conversations.
+* Data saved to the store remains available in future sessions.
+* Access the store through `runtime.store`. The store uses a namespace/key pattern to organize data
+* **For production deployments, use persistent store implementation like `PostgresStore` instead of `InMemoryStore`**
+
+#### Stream writer
+* Stream real-time updates from tools during execution. 
+* For providing progress feedback to users during long-running operations
+* Use `runtime.stream_writer` to emit custom updates
+
+#### Execution info
+* Access thread ID, run ID, and retry state from within a tool via `runtime.execution_info`
+
+#### Error handling
+* Handle tool errors using LangChain agent `middleware` to retry failed tool calls or return custom error messages
+
+#### Dynamic tool selection
+
+#### Headless tools
+
+
