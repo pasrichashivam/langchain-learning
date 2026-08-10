@@ -1,4 +1,5 @@
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, SystemMessage
+from rich.prompt import result
                                      
 def pretty_print_messages(state):
     """Pretty-print a LangChain agent state."""
@@ -34,3 +35,18 @@ def pretty_print_messages(state):
             print(f"Tool Call : {msg.tool_call_id}")
 
     print("=" * 80)
+
+def print_messages(result):
+    for m in result['messages']:
+        if isinstance(m, HumanMessage):
+            print(f"[bold green]HumanMessage:[/bold green] {m.content}")
+        elif isinstance(m, AIMessage):
+            if m.tool_calls:
+                print(f"[bold yellow]Agent:[/bold yellow] AIMessage with tool calls:")
+                for i, tool_call in enumerate(m.tool_calls, start=1):
+                    print(f"[bold yellow]Tool Call {i} Name:[/bold yellow] {tool_call['name']}\n[bold yellow]Tool Call {i} Args:[/bold yellow] {tool_call['args']}")
+            else:
+                print(f"[bold yellow]Agent:[/bold yellow] {m.content}")
+        elif isinstance(m, ToolMessage):
+            print(f"[bold cyan]ToolMessage:[/bold cyan] {m.content}")
+        print("=" * 80)

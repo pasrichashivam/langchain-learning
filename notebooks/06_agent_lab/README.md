@@ -42,3 +42,17 @@ Agents follow this iterative loop:
 5. Final Answer: Respond to the user
 ```
 <img src="../../assets/react-pattern-flow.png" height="250" width="500"/>
+
+
+
+#### The BI Analyst Agent can:
+* Analyze internal sales data stored in SQLite.
+* Convert natural-language business questions into SQL queries.
+* Execute read-only SQL queries against the sales database.
+* Analyze revenue, sales, products, countries, categories, and trends.
+* Calculate and discuss year-over-year business performance.
+* Convert monetary values between currencies.
+* Search external sources for market and competitor information.
+* Maintain conversation state using LangGraph's in-memory checkpointing.
+* Use different user contexts and roles, such as Business Analyst and Market Analyst.
+* Support follow-up questions that build upon previous analysis.
