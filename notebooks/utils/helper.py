@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, SystemMessage
-from rich.prompt import result
-                                     
+from rich import print
+
 def pretty_print_messages(state):
     """Pretty-print a LangChain agent state."""
     messages = state.get("messages", [])
