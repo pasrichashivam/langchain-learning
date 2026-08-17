@@ -50,3 +50,53 @@ def print_messages(result):
         elif isinstance(m, ToolMessage):
             print(f"[bold cyan]ToolMessage:[/bold cyan] {m.content}")
         print("=" * 80)
+
+def pretty_print_agent_output(result):
+    """Pretty-print a LangGraph/LangChain agent result."""
+    print("🤖 AGENT OUTPUT")
+    print("=" * 70)
+
+    # Messages
+    for msg in result.get("messages", []):
+        msg_type = type(msg).__name__
+
+        if msg_type == "HumanMessage":
+            print(f"\n👤 User:")
+            print(f"   {msg.content}")
+
+        elif msg_type == "AIMessage":
+            print(f"\n🤖 Assistant:")
+
+            if msg.content:
+                print(f"   {msg.content}")
+
+            # Tool calls
+            for tool_call in getattr(msg, "tool_calls", []):
+                print(f"\n🔧 Tool Call:")
+                print(f"   Name : {tool_call['name']}")
+                print(f"   Args : {tool_call['args']}")
+                print(f"   ID   : {tool_call['id']}")
+
+    # Interrupt / Human approval
+    interrupts = result.get("__interrupt__", [])
+
+    if interrupts:
+        print("\n" + "-" * 70)
+        print("⏸️  HUMAN APPROVAL REQUIRED")
+        print("-" * 70)
+
+        for interrupt in interrupts:
+            value = interrupt.value
+
+            for action in value.get("action_requests", []):
+                print(f"\n⚠️  Action: {action['name']}")
+                print(f"   Args       : {action['args']}")
+                print(f"   Description: {action['description']}")
+
+            for config in value.get("review_configs", []):
+                print(f"\n📋 Allowed decisions:")
+                print(f"   {', '.join(config['allowed_decisions'])}")
+
+            print(f"\n   Interrupt ID: {interrupt.id}")
+
+    print("\n" + "=" * 70)
