@@ -143,4 +143,189 @@ flowchart TD
         ),
     ]
 ```
+### 5. ToolCallLimitMiddleware
+
+```mermaid
+flowchart TD
+    A[Agent receives user request] --> B[Model generates response]
+    B --> C{Does response contain tool calls?}
+
+    C -->|No| D[Return final response]
+    C -->|Yes| E[ToolCallLimitMiddleware]
+
+    E --> F{Check tool call count}
+
+    F -->|Limit not reached| G[Allow tool call]
+    G --> H[Execute tool]
+    H --> I[Tool result]
+    I --> B
+
+    F -->|Limit reached| J{Exceed behavior?}
+
+    J -->|error| K[Raise ToolCallLimitError]
+    J -->|continue| L[Stop allowing further tool calls]
+    J -->|end| M[End agent execution]
+
+    K --> N[Agent fails / error returned]
+    L --> D
+    M --> D
+```
+
+```python
+    middleware=[
+        ToolCallLimitMiddleware(run_limit=8),
+        ToolCallLimitMiddleware(tool_name="cancel_booking", thread_limit=2, run_limit=1),  # tighter, one tool, whole conversation
+    ]
+```
+
+### 6. PIIMiddleware
+
+```mermaid
+flowchart TD
+    A[User request] --> B[Agent / Middleware]
+    B --> C[PIIMiddleware]
+    
+    C --> D{PII detected?}
+
+    D -->|No| E[Pass input unchanged]
+    D -->|Yes| F{PII strategy}
+
+    F -->|Redact| G[Replace PII with placeholder]
+    F -->|Mask| H[Mask PII value]
+    F -->|Block| I[Raise PII detection error]
+
+    G --> J[LLM / Agent]
+    H --> J
+    E --> J
+
+    J --> K{Tool call generated?}
+
+    K -->|No| L[Model response]
+    K -->|Yes| M[Tool execution]
+    
+    M --> N[Tool result]
+    N --> O[PIIMiddleware checks tool output]
+    O --> P{PII detected?}
+
+    P -->|No| Q[Return result]
+    P -->|Yes| R{Output strategy}
+
+    R -->|Redact / Mask| S[Sanitized result]
+    R -->|Block| T[Raise PII error]
+
+    S --> J
+    Q --> J
+
+    J --> U[Final response]
+
+    I --> V[Stop execution]
+    T --> V
+```
+
+```python
+    middleware=[
+        ToolCallLimitMiddleware(run_limit=8),
+        ToolCallLimitMiddleware(tool_name="cancel_booking", thread_limit=2, run_limit=1),  # tighter, one tool, whole conversation
+    ]
+```
+
+### 7. TodoListMiddleware
+
+```mermaid
+flowchart TD
+    A[User] --> B[Agent]
+    B --> C[TodoListMiddleware]
+
+    C --> D[System Prompt]
+    C --> E[write_todos Tool]
+
+    D --> F[LLM]
+    E --> F
+
+    F --> G{Need planning}
+
+    G -->|Yes| H[Call write_todos]
+    G -->|No| I[Use other tools]
+
+    H --> J[Update Agent State]
+    J --> K[todos]
+    K --> F
+
+    F --> L{More work}
+    L -->|Yes| F
+    L -->|No| M[Final Response]
+```
+
+```python
+    middleware=[TodoListMiddleware()]
+```
+
+### 8. LLMToolSelectorMiddleware
+
+```mermaid
+flowchart TD
+    A[User Request] --> B[LLMToolSelectorMiddleware]
+    B --> C[Selector LLM]
+    C --> D[Select Tools]
+    D --> E[Main Agent LLM]
+    E --> F[Execute Tool]
+    F --> G[Tool Result]
+    G --> E
+    E --> H[Final Response]
+```
+
+### 9. ToolErrorMiddleware
+
+```mermaid
+flowchart TD
+    A[Agent LLM] --> B[Call Tool]
+    B --> C{Tool succeeds?}
+
+    C -->|Yes| D[Tool Result]
+    C -->|No| E[Tool Error]
+
+    E --> F[ToolErrorMiddleware]
+    F --> G[Handle Error]
+    G --> H[Error Message]
+
+    D --> I[Continue Agent]
+    H --> I
+
+    I --> J[Final Response]
+```
+
+### 11. ToolRetryMiddleware
+
+```mermaid
+flowchart TD
+    A[Agent] --> B[Tool]
+    B --> C{Success?}
+
+    C -->|Yes| D[Tool Result]
+    C -->|No| E[ToolRetryMiddleware]
+
+    E --> F{Retry available?}
+
+    F -->|Yes| G[Backoff Delay]
+    G --> H[Retry Tool]
+    H --> B
+
+    F -->|No| I[Return Error]
+    I --> J[Agent Continues]
+
+    D --> J
+    J --> K[Final Response]
+```
+
+### 11. LLMToolEmulator
+
+```mermaid
+flowchart TD
+    A[Agent LLM] --> B[Tool Call]
+    B --> C[LLMToolEmulator]
+    C --> D[Emulator LLM]
+    D --> E[Simulated Tool Result]
+    E --> A
+    A --> F[Final Response]
+```
 
