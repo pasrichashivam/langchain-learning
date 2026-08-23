@@ -43,7 +43,7 @@ flowchart LR
 ### 1. SummarizationMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Conversation grows] --> B{Approaching token limit?}
     B -- No --> C[Continue conversation]
     B -- Yes --> D[Summarization middleware]
@@ -68,7 +68,7 @@ flowchart TD
 ### 2. HumanInTheLoopMiddleware (HITL)
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent execution] --> B[Agent decides to call a tool]
     B --> C{Requires human approval?}
     C -- No --> D[Execute tool]
@@ -93,7 +93,7 @@ flowchart TD
 ### 3. ModelCallLimitMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent receives request] --> B[ModelCallLimitMiddleware]
     
     B --> C{Before model call:<br/>check call count}
@@ -127,7 +127,8 @@ flowchart TD
 
 ### 4. ModelFallbackMiddleware
 
-flowchart TD
+```mermaid
+flowchart LR
     A[Agent Request] --> B[Primary Model]
     B -->|Success| E[Response]
     B -->|Failure| C[Fallback Model 1]
@@ -135,6 +136,7 @@ flowchart TD
     C -->|Failure| D[Fallback Model 2]
     D -->|Success| E
     D -->|Failure| F[Error]
+```
 
 ```python
     middleware=[
@@ -146,7 +148,7 @@ flowchart TD
 ### 5. ToolCallLimitMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent receives user request] --> B[Model generates response]
     B --> C{Does response contain tool calls?}
 
@@ -181,7 +183,7 @@ flowchart TD
 ### 6. PIIMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[User request] --> B[Agent / Middleware]
     B --> C[PIIMiddleware]
     
@@ -232,7 +234,7 @@ flowchart TD
 ### 7. TodoListMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[User] --> B[Agent]
     B --> C[TodoListMiddleware]
 
@@ -263,7 +265,7 @@ flowchart TD
 ### 8. LLMToolSelectorMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[User Request] --> B[LLMToolSelectorMiddleware]
     B --> C[Selector LLM]
     C --> D[Select Tools]
@@ -277,7 +279,7 @@ flowchart TD
 ### 9. ToolErrorMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent LLM] --> B[Call Tool]
     B --> C{Tool succeeds?}
 
@@ -294,10 +296,10 @@ flowchart TD
     I --> J[Final Response]
 ```
 
-### 11. ToolRetryMiddleware
+### 10. ToolRetryMiddleware
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent] --> B[Tool]
     B --> C{Success?}
 
@@ -320,7 +322,7 @@ flowchart TD
 ### 11. LLMToolEmulator
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Agent LLM] --> B[Tool Call]
     B --> C[LLMToolEmulator]
     C --> D[Emulator LLM]
@@ -329,3 +331,37 @@ flowchart TD
     A --> F[Final Response]
 ```
 
+### 12. ShellToolMiddleware
+* ShellToolMiddleware gives a LangChain agent a shell tool backed by one persistent shell session.
+* It is not just "a way to run bash." Its real value is combining 
+    1. persistent shell session + 
+    2. agent tool interface + 
+    3. lifecycle management + 
+    4. execution policy + 
+    5. resource limits + 
+    6. optional output redaction.
+
+```mermaid
+flowchart LR
+    A["Agent starts"] --> B["before_agent"]
+    B --> C["Create resources"]
+    C --> D["Start persistent shell"]
+    D --> E["startup_commands"]
+
+    E --> F["🤖 Agent Loop"]
+
+    F --> G["LLM"]
+    G --> H["shell tool call"]
+    H --> I["Persistent Shell"]
+    I --> J["Command Result"]
+    J --> G
+
+    G --> K["Agent completes"]
+
+    K --> L["after_agent"]
+    L --> M["shutdown_commands"]
+    M --> N["Release resources"]
+    N --> O["Done"]
+```
+
+>**One caveat worth knowing: <br> LangChain currently documents that persistent shell sessions do not work with interrupts/human-in-the-loop**
