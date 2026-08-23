@@ -15,4 +15,4 @@
 | [**11. Prebuilt Middleware**](07_middlewares/01_prebuilt_middleware.ipynb) | Practical examples of pre-defined middlewares.|
 | [**12. Shell Tool Middleware**](07_middlewares/02_shell_tool_middleware.ipynb) | Practical example of Shell Tool Middleware where Agent fix the python code to execute unit test sucessfully.|
 | [**13. Custom Middleware**](07_middlewares/03_custom_middleware.ipynb) | Practical examples of Custom middlewares.|
-| [**14. Prebuilt Middleware**](07_middlewares/04_runtime_and_middleware.ipynb) | Practical examples of pre-defined middlewares.|
+| [**14. Dynamic Prompt & HITL**](07_middlewares/04_dynamic_prompting_and_HITL.ipynb) | Practical examples of Dynamic Prompting.|

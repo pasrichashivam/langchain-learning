@@ -2,8 +2,6 @@
 
 <img src="../../assets/middlewares_graph.png" width="500" height="400">
 
-<img src="../../assets/middleware_callbacks.png" width="500" height="400">
-
 
 | Middleware            | Description                                                                                   |
 | --------------------- | --------------------------------------------------------------------------------------------- |
