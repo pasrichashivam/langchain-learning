@@ -12,3 +12,7 @@
 | [**8. Contextual & Stateful Tools**](05_tool_calls/02_context_aware_tool_calls.ipynb) | Understanding Contextual & Stateful Tools with Runtime e.g. E-Commerce Agent |
 | [**9. Mini App With contextual Tools**](05_tool_calls/03_milestone_tracker.ipynb) | Milestone tracker App using Contextual & Stateful Tools |
 | [**10. BA Agent**](06_agents/01_business_analyst_agent.ipynb) | Building a BA Agent that interacts with SQL database and External API's and Web search|
+| [**11. Prebuilt Middleware**](07_middlewares/01_prebuilt_middleware.ipynb) | Practical examples of pre-defined middlewares.|
+| [**12. Shell Tool Middleware**](07_middlewares/02_shell_tool_middleware.ipynb) | Practical example of Shell Tool Middleware where Agent fix the python code to execute unit test sucessfully.|
+| [**13. Custom Middleware**](07_middlewares/03_custom_middleware.ipynb) | Practical examples of Custom middlewares.|
+| [**14. Prebuilt Middleware**](07_middlewares/04_runtime_and_middleware.ipynb) | Practical examples of pre-defined middlewares.|
