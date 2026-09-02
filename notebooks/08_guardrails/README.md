@@ -6,9 +6,23 @@
 1. **Deterministic guardrails**
     * Use rule-based logic like regex patterns, keyword matching, or explicit checks. 
     * Fast, predictable, and cost-effective, but may miss nuanced violations.
+    ```python
+        def deterministic_guardrail(text: str) -> bool:
+            """Returns True if content is blocked."""
+            banned_keywords = ["hack", "exploit", "malware", "bomb"]
+            return any(kw in text.lower() for kw in banned_keywords)
+    ```
 2. **Model-based guardrails**
     * Use LLMs or classifiers to evaluate content with semantic understanding. 
     * Catch subtle issues that rules miss, but are slower and more expensive.
+    ```python
+        def model_based_guardrail(text: str) -> str:
+            """Uses an LLM to evaluate content safety. Returns SAFE or UNSAFE."""
+            model = ChatOpenAI(model="gpt-5-nano")
+            prompt = f"""Is the following user input safe to process? Reply with only 'SAFE' or 'UNSAFE'.
+                        Input: {text}"""
+            return model.invoke([{"role": "user", "content": prompt}]).content
+    ```
 
 ## A useful rule of thumb
 * Guardrails before the LLM → control what the model sees.
