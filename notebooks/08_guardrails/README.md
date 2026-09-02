@@ -71,6 +71,27 @@ flowchart TD
     OG --> U
 ```
 
+---
+
+### Notebook's Example Agent with Guardrails
+
+```mermaid
+flowchart TD
+    A[User Input] --> B["Layer 1: ContentFilterMiddleware\n(before_agent)"]
+    B -- banned keyword --> Z[End: refusal message]
+    B -- ok --> C["Layer 2: PIIMiddleware input\n(mask credit card)"]
+    C --> D["LLM + Tools\n(gpt-5-mini)"]
+    D -- wants to call send_email_tool --> E["Layer 3: HumanInTheLoopMiddleware\n(interrupt for approval)"]
+    E -- approved --> D
+    D -- final response --> F["Layer 4: PIIMiddleware output\n(redact email)"]
+    F --> G["Layer 5: SafetyGuardrailMiddleware\n(after_agent, gpt-5-nano check)"]
+    G -- UNSAFE --> H[Replace with safe fallback]
+    G -- SAFE --> I[User Response]
+    H --> I
+```
+
+---
+
 ## Exhastive Guardrails Categories
 * User input / entry point
     * Prompt-injection detection
