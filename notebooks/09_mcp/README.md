@@ -214,13 +214,32 @@ Real deployments rarely talk to just one MCP server. Two patterns, with a real t
 
 ## Authentication
 
+```mermaid
+sequenceDiagram
+    participant App
+    participant Client as fastmcp.Client
+    participant Server
+    App->>Client: Client(url, auth=token_or_"oauth")
+    alt Bearer token
+        Client->>Server: Authorization: Bearer <token>
+        Server-->>Client: 200 OK
+    else OAuth 2.1
+        Client->>Server: discovery + dynamic client registration
+        Server-->>Client: browser redirect
+        Client->>Server: token exchange
+        Server-->>Client: access token
+    end
+```
+
 --- 
 
-# Notebook Example
+## Notebook Example
+### Agent with Multi-Server MCP
+
 ```mermaid
 graph LR
-    A[CineBot Agent] -->|MCPAdapter| B[(MCP Server)]
-    B --> C[check_showtimes]
-    B --> D[cancel_booking]
-    B --> E[get_seat_map]
+    U[You type a question] --> AG[Agent]
+    AG -->|stdio| S1[(CineBot<br/>local script)]
+    AG -->|https, no key| S2[(Context7<br/>mcp.context7.com)]
+    AG -->|https| S3[(Your time-track server<br/>vercel.app)]
 ```
