@@ -1,7 +1,7 @@
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 
-model = init_chat_model("openai:gpt-5.5")
+model = init_chat_model("openai:gpt-5.5-nano")
 
 github_agent = create_agent(
     model,
