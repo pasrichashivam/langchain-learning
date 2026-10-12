@@ -11,3 +11,4 @@ wheels/
 .venv
 .env
 common*
+11_rag/
